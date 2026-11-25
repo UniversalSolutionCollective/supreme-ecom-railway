@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Browse the Supreme Store product catalog.">
+  <title>Supreme Store</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='store.css') }}">
+</head>
+<body>
+  <header><div class="wrap brand">SUPREME STORE</div></header>
+  <main class="wrap">
+    <h1>Shop the collection</h1>
+    {% if products %}
+      <p class="muted">Purchases are completed on the seller’s website. Confirm the final price there.</p>
+      <ul class="catalog" aria-label="Products">
+        {% for product in products %}
+          <li class="card">
+            {% if product.image %}<img src="{{ product.image }}" alt="" loading="lazy" referrerpolicy="no-referrer">{% endif %}
+            <div class="details">
+              <h2>{{ product.name }}</h2>
+              <p class="price">{{ product.price }}</p>
+              <a href="{{ product.checkout }}" rel="noreferrer" aria-label="View {{ product.name }} on seller site">View on seller site</a>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="empty"><p>No products are listed yet.</p></div>
+    {% endif %}
+  </main>
+</body>
+</html>
