@@ -6,13 +6,15 @@
   <meta name="description" content="Browse the Supreme Store product catalog.">
   <title>Supreme Store</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='store.css') }}">
+  <script defer src="{{ url_for('static', filename='cart.js') }}"></script>
 </head>
 <body>
   <header><div class="wrap brand">SUPREME STORE</div></header>
   <main class="wrap">
     <h1>Shop the collection</h1>
     {% if products %}
-      <p class="muted">Purchases are completed on the seller’s website. Confirm the final price there.</p>
+      <p class="muted">Check which products can ship to your country before ordering.</p>
+      <noscript><p>Enable JavaScript to use the cart and check shipping.</p></noscript>
       <ul class="catalog" aria-label="Products">
         {% for product in products %}
           <li class="card">
@@ -20,11 +22,24 @@
             <div class="details">
               <h2>{{ product.name }}</h2>
               <p class="price">{{ product.price }}</p>
-              <a href="{{ product.checkout }}" rel="noreferrer" aria-label="View {{ product.name }} on seller site">View on seller site</a>
+              <button type="button" data-sku="{{ product.sku }}" data-name="{{ product.name }}" class="add" aria-label="Add {{ product.name }} to cart">Add to cart</button>
             </div>
           </li>
         {% endfor %}
       </ul>
+      <section class="card cart" aria-labelledby="cart-heading">
+        <h2 id="cart-heading">Your cart</h2>
+        <p id="cart-summary" aria-live="polite"></p>
+        <ul id="cart-items"></ul>
+        <label for="destination">Delivery country</label>
+        <select id="destination">
+          <option value="">Select a country</option>
+          {% for code in destinations %}<option value="{{ code }}">{{ code }}</option>{% endfor %}
+        </select>
+        <button type="button" id="preview">Check shipping</button>
+        <p id="preview-result" role="status"></p>
+        <p class="muted">Online checkout is not open yet. No order is placed and no payment is collected.</p>
+      </section>
     {% else %}
       <div class="empty"><p>No products are listed yet.</p></div>
     {% endif %}
