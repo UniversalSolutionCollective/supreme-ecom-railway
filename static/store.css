@@ -13,5 +13,10 @@ h1 { font: 700 clamp(2.2rem, 7vw, 4rem)/1.05 Georgia, serif; margin: 0 0 1rem; }
 .details, .empty { padding: 1.35rem; }
 h2, .empty p { margin: 0; }
 .price { font-variant-numeric: tabular-nums; font-weight: 650; }
-a { display: inline-flex; align-items: center; min-height: 44px; color: #fff; background: #30233d; border-radius: .4rem; padding: .55rem .9rem; }
-a:focus-visible { outline: 3px solid #5144aa; outline-offset: 3px; }
+button { font: inherit; min-height: 44px; padding: .5rem .9rem; background: #30233d; color: #fff; border: 0; border-radius: .4rem; cursor: pointer; }
+button:disabled { opacity: .6; cursor: default; }
+button:focus-visible, select:focus-visible { outline: 3px solid #5144aa; outline-offset: 3px; }
+.cart { padding: 1.35rem; margin-top: 2rem; }
+.cart li { margin-block: .35rem; }
+.cart label { display: block; margin-bottom: .5rem; font-weight: 650; }
+select { font: inherit; min-height: 44px; padding: .45rem; max-width: 100%; margin: 0 .5rem .5rem 0; }
